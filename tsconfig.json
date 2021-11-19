@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "dist/",
+    "rootDir": "./src/",
+    "jsx": "react",
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "declaration": true
+  },
+  "include": [
+    "src"
+  ]
+}
