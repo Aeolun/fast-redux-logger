@@ -7,6 +7,7 @@ export interface LogItem {
   time: Date;
   timeSinceLast: number;
   diffComputeTime: number;
+  reducerComputeTime: number;
   diff: any;
   action: any;
 }
@@ -49,7 +50,10 @@ export const fastLoggerMiddleware =
     loggerState.actionHistory.push(logitem);
     lastActionTime = newTime;
 
+    const beforeReducerTime = new Date();
     const returned = next(action);
+    logitem.reducerComputeTime =
+      new Date().getTime() - beforeReducerTime.getTime();
 
     const afterState = store.getState();
     logitem.stateAfter = afterState;

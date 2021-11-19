@@ -189,7 +189,7 @@ export const StoreActions = (props: {
     }
     timeout = window.setTimeout(() => {
       setVersion(Math.random());
-    }, 1000);
+    }, 500);
   });
 
   useEffect(() => {
@@ -247,6 +247,15 @@ export const StoreActions = (props: {
             <div>StoreActions</div>
             <Menu>
               <MenuItem
+                onClick={() => {
+                  loggerState.actionHistory = [];
+                  setCurrent(undefined);
+                  setVersion(Math.random());
+                }}
+              >
+                Clear
+              </MenuItem>
+              <MenuItem
                 onClick={async () => {
                   await localforage.setItem(
                     "@@integratedLogger/savedState",
@@ -293,7 +302,7 @@ export const StoreActions = (props: {
                   setFilterPath([]);
                 }}
               >
-                Clear
+                Reset
               </Clear>
             ) : null}
           </Filter>
@@ -323,7 +332,9 @@ export const StoreActions = (props: {
                       {item === current ? (
                         <>
                           <br />
-                          {item.time.toISOString()} [diff {item.diffComputeTime}
+                          {item.time.toISOString()} [reducer{" "}
+                          {item.reducerComputeTime}
+                          ms] [diff {item.diffComputeTime}
                           ms]
                         </>
                       ) : null}
