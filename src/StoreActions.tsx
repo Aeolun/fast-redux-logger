@@ -8,6 +8,7 @@ import JSONDiff from "./JSONDiff";
 import { base16Theme } from "./base16theme";
 import React from "react";
 import { loggerState } from "./integratedLogger";
+import { getItemString } from "./GetItemString";
 
 const Popup = styled.div`
   height: 40%;
@@ -156,6 +157,7 @@ const ActionItem = styled.div<{ selected: boolean }>`
 
 const NodeAction = styled.span`
   text-decoration: underline;
+  cursor: pointer;
   color: ${base16Theme.base0A};
   &:hover {
     color: ${base16Theme.base0C};
@@ -179,7 +181,6 @@ export const StoreActions = (props: {
   const [filterPath, setFilterPath] = useState([]);
   const [version, setVersion] = useState(Math.random());
   const [current, setCurrent] = useState<any>(undefined);
-  const [invert, setInvert] = useState(false);
   const actionList = useRef<HTMLDivElement>(null);
 
   props.store.subscribe(() => {
@@ -211,7 +212,7 @@ export const StoreActions = (props: {
               });
             }}
           >
-            [Root]
+            Pin
           </NodeAction>
         </Label>
       );
@@ -232,6 +233,10 @@ export const StoreActions = (props: {
     return returnItem;
   };
 
+  const getItemStringLocal = useCallback((type: string, data: any) => {
+    return getItemString(type, data, undefined, true, false);
+  }, []);
+
   console.log("keyPath", filterPath);
 
   return (
@@ -241,13 +246,6 @@ export const StoreActions = (props: {
           <Header>
             <div>StoreActions</div>
             <Menu>
-              <MenuItem
-                onClick={() => {
-                  setInvert(!invert);
-                }}
-              >
-                Invert
-              </MenuItem>
               <MenuItem
                 onClick={async () => {
                   await localforage.setItem(
@@ -260,14 +258,15 @@ export const StoreActions = (props: {
                 Save
               </MenuItem>
               <MenuItem
-                onClick={async () => {
-                  const data = await localforage.getItem(
-                    "@@integratedLogger/savedState"
-                  );
-                  props.store.dispatch({
-                    type: "@@integratedLogger/setstore",
-                    payload: data,
-                  });
+                onClick={() => {
+                  localforage
+                    .getItem("@@integratedLogger/savedState")
+                    .then((data) => {
+                      props.store.dispatch({
+                        type: "@@integratedLogger/setstore",
+                        payload: data,
+                      });
+                    });
                 }}
               >
                 Load
@@ -368,7 +367,6 @@ export const StoreActions = (props: {
                           delta={rootItem(current.diff, filterPath)}
                           collectionLimit={10}
                           labelRenderer={renderLabel}
-                          invertTheme={invert}
                           isWideLayout={true}
                           dataTypeKey={undefined}
                         />
@@ -379,7 +377,7 @@ export const StoreActions = (props: {
                         theme={base16Theme}
                         data={current.action}
                         collectionLimit={10}
-                        invertTheme={invert}
+                        getItemString={getItemStringLocal}
                         shouldExpandNode={(keyPath, data, level) => {
                           return !Array.isArray(data) || data.length < 10
                             ? true
@@ -391,8 +389,8 @@ export const StoreActions = (props: {
                       <JSONTree
                         theme={base16Theme}
                         labelRenderer={renderLabel}
+                        getItemString={getItemStringLocal}
                         collectionLimit={10}
-                        invertTheme={invert}
                         hideRoot
                         data={rootItem(current.stateAfter, filterPath)}
                       />

@@ -7,6 +7,8 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
+    "prepublish": "npm run build",
+    "release": "standard-version",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,7 +18,8 @@
     "jsondiffpatch": "0.4.1",
     "localforage": "1.10.0",
     "react-base16-styling": "0.8.1",
-    "react-json-tree": "0.15.1"
+    "react-json-tree": "0.15.1",
+    "standard-version": "7.0.0"
   },
   "devDependencies": {
     "react": "^17.0.2",
