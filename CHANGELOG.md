@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.3...v0.0.4) (2021-11-26)
+
+
+### Features
+
+* limit the number of actions saved to 300 ([641b753](https://github.com/Aeolun/fast-redux-logger/commit/641b7530557f79059c9969db96f9b0b5123d5524))
+
 ### [0.0.3](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.2...v0.0.3) (2021-11-19)
 
 
