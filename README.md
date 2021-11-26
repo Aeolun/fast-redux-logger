@@ -1,5 +1,10 @@
-redux-fast-logger
-===
+<div>
+  <h1>redux-fast-logger</h1>
+
+  <a href="https://www.npmjs.com/package/fast-redux-logger">
+    <img src="https://img.shields.io/npm/dm/fast-redux-logger.svg" alt="npm downloads" />
+  </a>
+</div>
 
 This is an alternative implementation of redux-logger that should be included directly in your application code.
 
