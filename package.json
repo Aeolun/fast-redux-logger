@@ -2,6 +2,9 @@
   "name": "fast-redux-logger",
   "version": "0.0.4",
   "description": "A fast replacement for redux-devtools that does only absolutely necessary things",
+  "repository": {
+    "url": "https://github.com/Aeolun/fast-redux-logger"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -11,7 +14,10 @@
     "release": "standard-version",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": {
+    "name": "Bart Riepe",
+    "url": "https://serial-experiments.com"
+  },
   "license": "ISC",
   "dependencies": {
     "immutable": "4.0.0",
