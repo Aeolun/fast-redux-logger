@@ -59,8 +59,11 @@ export const fastLoggerMiddleware =
     logitem.stateAfter = afterState;
     const startCompution = new Date();
     logitem.diff = jsondiffpatch.diff(beforeState, afterState);
-
     logitem.diffComputeTime = new Date().getTime() - startCompution.getTime();
+
+    if (loggerState.actionHistory.length > 300) {
+      loggerState.actionHistory.shift();
+    }
 
     return returned;
   };

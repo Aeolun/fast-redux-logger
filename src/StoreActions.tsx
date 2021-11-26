@@ -29,7 +29,8 @@ const Header = styled.div`
 
 const ActionPanel = styled.div`
   width: 40%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   height: 100%;
   border-right: 1px solid black;
 `;
@@ -183,14 +184,16 @@ export const StoreActions = (props: {
   const [current, setCurrent] = useState<any>(undefined);
   const actionList = useRef<HTMLDivElement>(null);
 
-  props.store.subscribe(() => {
-    if (timeout) {
-      window.clearTimeout(timeout);
-    }
-    timeout = window.setTimeout(() => {
-      setVersion(Math.random());
-    }, 500);
-  });
+  useEffect(() => {
+    props.store.subscribe(() => {
+      if (timeout) {
+        window.clearTimeout(timeout);
+      }
+      timeout = window.setTimeout(() => {
+        setVersion(Math.random());
+      }, 500);
+    });
+  }, [props.store, setVersion]);
 
   useEffect(() => {
     if (actionList.current) {
@@ -253,7 +256,7 @@ export const StoreActions = (props: {
                   setVersion(Math.random());
                 }}
               >
-                Clear
+                Clear ({loggerState.actionHistory.length})
               </MenuItem>
               <MenuItem
                 onClick={async () => {
