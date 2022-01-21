@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.5...v0.0.6) (2022-01-21)
+
+
+### Features
+
+* add action filter ([#2](https://github.com/Aeolun/fast-redux-logger/issues/2)) ([a81557e](https://github.com/Aeolun/fast-redux-logger/commit/a81557edb6094736a157fc048c1b4b0ae2bfb662))
+
+
+### Bug Fixes
+
+* typing and compilation errors ([24af6b0](https://github.com/Aeolun/fast-redux-logger/commit/24af6b00d9520deb0d93cfd365f719d0652d490d))
+
 ### [0.0.5](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.4...v0.0.5) (2021-11-26)
 
 ### [0.0.4](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.3...v0.0.4) (2021-11-26)
