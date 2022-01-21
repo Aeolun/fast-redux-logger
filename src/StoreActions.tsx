@@ -9,6 +9,7 @@ import { base16Theme } from "./base16theme";
 import React from "react";
 import { loggerState } from "./integratedLogger";
 import { getItemString } from "./GetItemString";
+import { debounce } from "./utils";
 
 const Popup = styled.div`
   height: 40%;
@@ -46,6 +47,7 @@ const ActionDetail = styled.div`
 const MenuItem = styled.div`
   margin-left: 8px;
   cursor: pointer;
+  line-height: initial;
   &:hover {
     text-decoration: underline;
   }
@@ -169,6 +171,22 @@ const Label = styled.span`
   color: ${base16Theme.base0D};
 `;
 
+const Input = styled.input`
+  &::placeholder {
+    color: gray;
+  }
+  &:focus-visible {
+    outline-offset: 0px;
+  }
+  caret-color: #ffffff;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  color: inherit;
+  font-size: 1.1em;
+  box-shadow: 0px 1px 0px 0px #bbb;
+`;
+
 let timeout: number | undefined;
 
 export const StoreActions = (props: {
@@ -180,6 +198,7 @@ export const StoreActions = (props: {
 
   const [tab, setTab] = useState("diff");
   const [filterPath, setFilterPath] = useState([]);
+  const [actionFilter, setActionFilter] = useState('');
   const [version, setVersion] = useState(Math.random());
   const [current, setCurrent] = useState<any>(undefined);
   const actionList = useRef<HTMLDivElement>(null);
@@ -198,6 +217,10 @@ export const StoreActions = (props: {
   useEffect(() => {
     if (actionList.current) {
       actionList.current.scrollTop = actionList.current.scrollHeight;
+    }
+    return () => {
+      // clean filter value while unmounting...
+      setActionFilter("");
     }
   }, [version]);
 
@@ -240,6 +263,13 @@ export const StoreActions = (props: {
     return getItemString(type, data, undefined, true, false);
   }, []);
 
+  const debounceSetActionFilter = useCallback(
+    debounce((value: string) => {
+      setActionFilter(value);
+    }),
+    [setActionFilter]
+  );
+
   console.log("keyPath", filterPath);
 
   return (
@@ -249,6 +279,15 @@ export const StoreActions = (props: {
           <Header>
             <div>StoreActions</div>
             <Menu>
+            <Input
+              name="actionFilter"
+              placeholder="Action Filter..."
+              autoFocus
+              onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                const { value } = e.target as HTMLInputElement;
+                debounceSetAcitonFilter(value.toUpperCase());
+              }}
+            />
               <MenuItem
                 onClick={() => {
                   loggerState.actionHistory = [];
@@ -313,13 +352,15 @@ export const StoreActions = (props: {
             <ActionPanel ref={actionList}>
               {history
                 .filter((item) => {
-                  console.log(
-                    item.action.type,
-                    item.diff && rootItem(item.diff, filterPath)
-                  );
+                  const {
+                    diff,
+                    action: { type: actionType },
+                  } = item;
+                  console.log(actionType, diff && rootItem(diff, filterPath));
                   return (
-                    filterPath.length === 0 ||
-                    rootItem(item.diff, filterPath) !== undefined
+                    (filterPath.length === 0 ||
+                      rootItem(diff, filterPath) !== undefined) &&
+                    actionType.toUpperCase().includes(actionFilter)
                   );
                 })
                 .map((item, index) => {
