@@ -263,7 +263,7 @@ export const StoreActions = (props: {
     return getItemString(type, data, undefined, true, false);
   }, []);
 
-  const debounceSetAcitonFilter = useCallback(
+  const debounceSetActionFilter = useCallback(
     debounce((value: string) => {
       setActionFilter(value);
     }),
