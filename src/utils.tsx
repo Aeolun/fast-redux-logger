@@ -81,9 +81,9 @@ export const debounce = <T extends (...args: unknown[]) => unknown>(
   callback: T,
   delay = 250,
 ): ((...args: Parameters<T>) => void) => {
-  let timeoutId: NodeJS.Timeout
+  let timeoutId: number
   return (...args) => {
-    clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => callback(...args), delay)
+    window.clearTimeout(timeoutId)
+    timeoutId = window.setTimeout(() => callback(...args), delay)
   }
 }

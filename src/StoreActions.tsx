@@ -147,11 +147,11 @@ const DiffTime = styled.div`
   right: 4px;
 `;
 
-const ActionItem = styled.div<{ selected: boolean }>`
+const ActionItem = styled.div`
   padding: 4px;
   cursor: pointer;
   position: relative;
-  background-color: ${(props) =>
+  background-color: ${(props: { selected: boolean }) =>
     props.selected ? base16Theme.base0A : "transparent"};
   &:hover {
     background-color: lightcyan;
@@ -285,7 +285,7 @@ export const StoreActions = (props: {
               autoFocus
               onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
                 const { value } = e.target as HTMLInputElement;
-                debounceSetAcitonFilter(value.toUpperCase());
+                debounceSetActionFilter(value.toUpperCase());
               }}
             />
               <MenuItem
