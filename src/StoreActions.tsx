@@ -270,8 +270,6 @@ export const StoreActions = (props: {
     [setActionFilter]
   );
 
-  console.log("keyPath", filterPath);
-
   return (
     <>
       {props.isOpen ? (
@@ -356,7 +354,6 @@ export const StoreActions = (props: {
                     diff,
                     action: { type: actionType },
                   } = item;
-                  console.log(actionType, diff && rootItem(diff, filterPath));
                   return (
                     (filterPath.length === 0 ||
                       rootItem(diff, filterPath) !== undefined) &&
