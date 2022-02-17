@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.8...v0.0.9) (2022-02-17)
+
+
+### Features
+
+* switch to compiled styles instead of styled-components ([d42be3d](https://github.com/Aeolun/fast-redux-logger/commit/d42be3d39e264be3b07cf38dd2b51e43414e6f84))
+
 ### [0.0.8](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.7...v0.0.8) (2022-01-25)
 
 

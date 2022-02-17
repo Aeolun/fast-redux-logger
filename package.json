@@ -1,6 +1,6 @@
 {
   "name": "fast-redux-logger",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A fast replacement for redux-devtools that does only absolutely necessary things",
   "repository": {
     "url": "https://github.com/Aeolun/fast-redux-logger"
