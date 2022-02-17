@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "@compiled/react";
 import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 
 import { Store } from "redux";
@@ -147,7 +147,7 @@ const DiffTime = styled.div`
   right: 4px;
 `;
 
-const ActionItem = styled.div`
+const ActionItem = styled.div<{selected: boolean}>`
   padding: 4px;
   cursor: pointer;
   position: relative;
