@@ -1,7 +1,8 @@
 {
   "presets": [
+    "@babel/preset-typescript",
     "@babel/preset-react",
-    "@babel/preset-typescript"
+    "@babel/preset-env"
   ],
   "plugins": [
     "@compiled/babel-plugin"
