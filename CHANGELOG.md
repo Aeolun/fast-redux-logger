@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.9...v0.0.10) (2022-02-18)
+
+
+### Features
+
+* transpile before publish ([5e2187f](https://github.com/Aeolun/fast-redux-logger/commit/5e2187f0d393616443d936effe5c1ed305a6e528))
+
 ### [0.0.9](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.8...v0.0.9) (2022-02-17)
 
 
