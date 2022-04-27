@@ -167,3 +167,11 @@
 .nodeAction:hover {
     color: ${base16Theme.base0C};
 }
+
+.selectorPanel {
+    display: flex;
+}
+
+.selectorSelect li.selected {
+    color: yellow;
+}

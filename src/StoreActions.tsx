@@ -42,6 +42,28 @@ const ActionDetail = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  
+  .selectorPanel {
+    display: flex;
+  }
+  
+  .selectorSelect ul {
+    padding: 1em;
+    list-style: none;
+    margon: 0;
+  }
+  
+  .selectorSelect li:hover {
+    background-color: lightcyan;
+  }
+  
+  .selectorSelect li.selected {
+      color: ${base16Theme.base0A};
+  }
+  
+  .selectorSelect li {
+    cursor: pointer;
+  }
 `;
 
 const MenuItem = styled.div`
@@ -193,12 +215,14 @@ export const StoreActions = (props: {
   store: Store;
   isOpen: boolean;
   onClose: () => void;
+  selectors?: Record<string, (state: any) => any>
 }) => {
   const history = loggerState.actionHistory;
 
   const [tab, setTab] = useState("diff");
   const [filterPath, setFilterPath] = useState([]);
   const [actionFilter, setActionFilter] = useState('');
+  const [selectedSelector, setSelectedSelector] = useState('');
   const [version, setVersion] = useState(Math.random());
   const [current, setCurrent] = useState<any>(undefined);
   const actionList = useRef<HTMLDivElement>(null);
@@ -410,6 +434,12 @@ export const StoreActions = (props: {
                     >
                       State
                     </div>
+                    <div
+                      className={tab === "selectors" ? "selected" : ""}
+                      onClick={() => setTab("selectors")}
+                    >
+                      Selectors
+                    </div>
                   </Tabs>
                   <Scroll>
                     {tab === "diff" ? (
@@ -417,7 +447,7 @@ export const StoreActions = (props: {
                         <JSONDiff
                           theme={base16Theme}
                           delta={rootItem(current.diff, filterPath)}
-                          collectionLimit={10}
+                          collectionLimit={30}
                           labelRenderer={renderLabel}
                           isWideLayout={true}
                           dataTypeKey={undefined}
@@ -428,7 +458,7 @@ export const StoreActions = (props: {
                       <JSONTree
                         theme={base16Theme}
                         data={current.action}
-                        collectionLimit={10}
+                        collectionLimit={30}
                         getItemString={getItemStringLocal}
                         shouldExpandNode={(keyPath, data, level) => {
                           return !Array.isArray(data) || data.length < 10
@@ -442,11 +472,33 @@ export const StoreActions = (props: {
                         theme={base16Theme}
                         labelRenderer={renderLabel}
                         getItemString={getItemStringLocal}
-                        collectionLimit={10}
+                        collectionLimit={30}
                         hideRoot
                         data={rootItem(current.stateAfter, filterPath)}
                       />
                     ) : null}
+                    {
+                      tab === 'selectors' ? (
+                        <div className={"selectorPanel"}>
+                          <div className={"selectorSelect"}>
+                          <ul>{
+                            props.selectors ? Object.keys(props.selectors).map(selectorName => {
+                              return <li onClick={() => {
+                                setSelectedSelector(selectorName)
+                              }} className={selectorName === selectedSelector ? 'selected' : ''}>{selectorName}</li>
+                            }) : null
+                          }</ul>
+                          </div>
+                          <div className={'selectorResult'}>
+                            {selectedSelector && props.selectors[selectedSelector] ? <JSONTree
+                              theme={base16Theme}
+                              labelRenderer={renderLabel}
+                              getItemString={getItemStringLocal}
+                              data={props.selectors[selectedSelector](current.stateAfter)} /> : null }
+                          </div>
+                        </div>
+                      ) : null
+                    }
                   </Scroll>
                 </>
               ) : null}
