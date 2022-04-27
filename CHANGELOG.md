@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.10...v0.0.11) (2022-04-27)
+
+
+### Features
+
+* allow specifying selectors to show results for when action is selected ([6c8a9e6](https://github.com/Aeolun/fast-redux-logger/commit/6c8a9e693e69c5d8bc572221fd07bfbfa85b53fd))
+
 ### [0.0.10](https://github.com/Aeolun/fast-redux-logger/compare/v0.0.9...v0.0.10) (2022-02-18)
 
 
