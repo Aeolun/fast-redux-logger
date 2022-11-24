@@ -17,8 +17,7 @@ const Popup = styled.div`
   background-color: white;
   display: flex;
   contain: content;
-  flex-direction: column;
-`;
+  flex-direction: column;`;
 
 const Header = styled.div`
   padding: 4px;
